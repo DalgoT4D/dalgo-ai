@@ -36,7 +36,7 @@ class MySecondTestCase(unittest.TestCase):
     def setUp(self):
         self.base_url = "http://localhost:8080"
 
-    def test_models_fn(self):
+    def test_models_fn1(self):
         url = f"{self.base_url}/api/mindsdb/classifier/models"
         headers = {'Content-Type': 'application/json'}
         payload = {
@@ -47,12 +47,16 @@ class MySecondTestCase(unittest.TestCase):
         }
         response = requests.post(url, headers=headers, data=json.dumps(payload))
         self.assertEqual(response.json()["status"], "success")
-        payload2 = {
+
+    def test_models_fn2(self):
+        url = f"{self.base_url}/api/mindsdb/classifier/models"
+        headers = {'Content-Type': 'application/json'}
+        payload ={
             "db_credentials": {
                 "subscription": "local"
             }
         }
-        response2 = requests.post(url, headers=headers, data=json.dumps(payload2))
+        response2 = requests.post(url, headers=headers, data=json.dumps(payload))
         self.assertEqual(response2.json()["status"], "success")
 
 
@@ -60,7 +64,8 @@ def suite():
     suit = unittest.TestSuite()
     suit.addTest(MyFirstTestCase('test_healthcheck_fn'))
     suit.addTest(MyFirstTestCase('test_train_fn'))
-    suit.addTest(MySecondTestCase('test_models_fn'))
+    suit.addTest(MySecondTestCase('test_models_fn1'))
+    suit.addTest(MySecondTestCase('test_models_fn2'))
     return suit
 
 
