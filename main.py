@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 import uvicorn
 import argparse
+from routers import train
 
 def create_app():
     app = FastAPI()
@@ -10,6 +11,7 @@ def create_app():
     def healthcheck():
         return {"status": "ok"}
 
+    app.include_router(train.router)
     return app
 
 if __name__ == "__main__":
