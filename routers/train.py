@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.post("/api/mindsdb/classifier/train")
-async def train_fn(item: TrainDetails):
+def train_fn(item: TrainDetails):
     try:
         outcome = train_fn(item)
         return {"status": "success", "outcome": str(outcome)}

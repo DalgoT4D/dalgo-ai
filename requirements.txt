@@ -13,3 +13,4 @@ starlette==0.35.1
 typing_extensions==4.9.0
 uvicorn==0.27.0.post1
 mindsdb_sdk==2.1.1
+pandas==2.2.0

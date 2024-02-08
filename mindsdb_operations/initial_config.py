@@ -10,6 +10,12 @@ class TrainDetails(BaseModel):
     optional_filter_condition: str = None
     input_columns_names: str
     output_column_names: str
+    project_name: str = None
+
+
+class ModelDetails(BaseModel):
+    project_name: str = None
+    db_credentials: dict
 
 
 def get_connection(db_credentials: dict):

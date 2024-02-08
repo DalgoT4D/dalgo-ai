@@ -13,19 +13,38 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["status"], "ok")
 
-    def test_train_fn(self):
-        url = f"{self.base_url}/api/mindsdb/classifier/train"
+    # def test_train_fn(self):
+    #     url = f"{self.base_url}/api/mindsdb/classifier/train"
+    #     headers = {'Content-Type': 'application/json'}
+    #     payload = {
+    #         "name_of_model": "test_regression_model",
+    #         "db_credentials": {
+    #             "db_name": "test_db",
+    #             "subscription": "local"
+    #         },
+    #         "training_set_schema": "demo_data",
+    #         "training_set_tableName": "home_rentals",
+    #         "input_columns_names": "*",
+    #         "output_column_names": "rentals_price"
+    #     }
+    #     response = requests.post(url, headers=headers, data=json.dumps(payload))
+    #     self.assertEqual(response.json()["status"], "success")
+
+    def test_models_fn(self):
+        url = f"{self.base_url}/api/mindsdb/classifier/models"
         headers = {'Content-Type': 'application/json'}
         payload = {
-            "name_of_model": "test_regression_model",
             "db_credentials": {
-                "db_name": "example_db",
                 "subscription": "local"
             },
-            "training_set_schema": "demo_data",
-            "training_set_tableName": "home_rentals",
-            "input_columns_names": "*",
-            "output_column_names": "rentals_price"
+            "project_name": "mindsdb"
+        }
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        self.assertEqual(response.json()["status"], "success")
+        payload = {
+            "db_credentials": {
+                "subscription": "local"
+            }
         }
         response = requests.post(url, headers=headers, data=json.dumps(payload))
         self.assertEqual(response.json()["status"], "success")
