@@ -46,3 +46,10 @@ db_credentials = {
 }
 ```
 
+## For models api
+```python
+{
+    "project_name": "<optional: if you want list of models from a particular project, then enter this filed>",
+    "db_credentials": "db_credentials (same format as above)"
+}
+```
