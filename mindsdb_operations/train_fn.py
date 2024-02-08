@@ -32,12 +32,8 @@ def generate_train_query(item: TrainDetails):
 
 def train_fn(item: TrainDetails):
     server = get_connection(item.db_credentials)
-    print(1)
     mindsdb = server.get_project('mindsdb')
     if item.project_name is not None:
-        mindsdb.query(f"CREATE DATABASE [IF NOT EXISTS] {item.project_name};")
-        mindsdb = server.get_project(item.project_name)
-    print(3)
-    result = mindsdb.query(generate_train_query(item)).fetch()
-    print(4)
-    return result.to_dict(orient='records')
+        mindsdb.query(f"CREATE PROJECT IF NOT EXISTS {item.project_name};").fetch()
+    result = mindsdb.query(generate_train_query(item)).fetch().to_dict(orient='records')
+    return result
