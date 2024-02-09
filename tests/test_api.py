@@ -43,7 +43,7 @@ class MySecondTestCase(unittest.TestCase):
             "db_credentials": {
                 "subscription": "local"
             },
-            "project_name": "temp"
+            "project_name": "example_db"
         }
         response = requests.post(url, headers=headers, data=json.dumps(payload))
         self.assertEqual(response.json()["status"], "success")

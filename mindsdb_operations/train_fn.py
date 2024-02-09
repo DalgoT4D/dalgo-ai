@@ -3,30 +3,12 @@ from mindsdb_operations.initial_config import get_connection, TrainDetails
 
 def generate_train_query(item: TrainDetails):
     db_name = item.db_credentials.get("db_name", None)
-    if item.optional_filter_condition is None:
-        if item.project_name is None:
-            query = str(
-                f"CREATE MODEL mindsdb.{item.name_of_model} FROM {db_name}.{item.training_set_schema} "
-                f"(SELECT {item.input_columns_names} FROM {item.training_set_tableName}) "
-                f"PREDICT {item.output_column_names};")
-        else:
-            query = str(
-                f"CREATE MODEL {item.project_name}.{item.name_of_model} FROM {db_name}.{item.training_set_schema} "
-                f"(SELECT {item.input_columns_names} FROM {item.training_set_tableName}) "
-                f"PREDICT {item.output_column_names};")
-    else:
-        if item.project_name is None:
-            query = str(
-                f"CREATE MODEL mindsdb.{item.name_of_model} FROM {db_name}.{item.training_set_schema} "
-                f"(SELECT {item.input_columns_names} FROM {item.training_set_tableName} "
-                f"WHERE {item.optional_filter_condition}) "
-                f"PREDICT {item.output_column_names};")
-        else:
-            query = str(
-                f"CREATE MODEL {item.project_name}.{item.name_of_model} FROM {db_name}.{item.training_set_schema} "
-                f"(SELECT {item.input_columns_names} FROM {item.training_set_tableName} "
-                f"WHERE {item.optional_filter_condition}) "
-                f"PREDICT {item.output_column_names};")
+    project_name = item.project_name if item.project_name is not None else "mindsdb"
+    schema = f"{item.training_set_schema}." if item.training_set_schema is not None else ""
+    filter_condition = f" WHERE {item.optional_filter_condition}" if item.optional_filter_condition is not None else ""
+    query = (f"CREATE MODEL {project_name}.{item.name_of_model} FROM {db_name} "
+             f"(SELECT {item.input_columns_names} FROM {schema}{item.training_set_tableName}{filter_condition}) "
+             f"PREDICT {item.output_column_names};")
     return query
 
 
