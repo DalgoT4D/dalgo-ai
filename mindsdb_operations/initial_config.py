@@ -18,6 +18,11 @@ class ModelDetails(BaseModel):
     db_credentials: dict
 
 
+class TrainingStatusDetails(BaseModel):
+    db_credentials: dict
+    model_name: str
+
+
 def get_connection(db_credentials: dict):
     subscription = db_credentials.get("subscription", "cloud")
     url = db_credentials.get("url", None)

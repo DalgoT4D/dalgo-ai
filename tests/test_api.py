@@ -60,12 +60,30 @@ class MySecondTestCase(unittest.TestCase):
         self.assertEqual(response2.json()["status"], "success")
 
 
+class MyThirdTestCase(unittest.TestCase):
+    def setUp(self):
+        self.base_url = "http://localhost:8080"
+
+    def test_training_status_fn1(self):
+        url = f"{self.base_url}/api/mindsdb/classifier/trainingstatus"
+        headers = {'Content-Type': 'application/json'}
+        payload = {
+            "db_credentials": {
+                "subscription": "local"
+            },
+            "model_name": "test_regression_model",
+        }
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        self.assertEqual(response.json()["status"], "success")
+
+
 def suite():
     suit = unittest.TestSuite()
     suit.addTest(MyFirstTestCase('test_healthcheck_fn'))
     suit.addTest(MyFirstTestCase('test_train_fn'))
     suit.addTest(MySecondTestCase('test_models_fn1'))
     suit.addTest(MySecondTestCase('test_models_fn2'))
+    suit.addTest(MyThirdTestCase('test_training_status_fn1'))
     return suit
 
 
