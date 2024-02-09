@@ -13,7 +13,8 @@ body_in_train_request = {
     "training_set_schema": "<optional: if schema present enter schema>",
     "training_set_tableName": "<enter table_name>",
     "input_columns_names": "<enter '*' for all otherwise enter 'col1,col2,col3,..'>",
-    "output_column_names": "<enter '*' for all otherwise enter 'col1,col2,col3,..'>"
+    "output_column_names": "<enter '*' for all otherwise enter 'col1,col2,col3,..'>",
+    "project_name": "<optional: if you want to create a model in a particular project, then enter this field, otherwise default project is 'mindsdb'>",
 }
 ```
 ## db_credentials format
@@ -49,7 +50,7 @@ db_credentials = {
 ## For models api
 ```python
 {
-    "project_name": "<optional: if you want list of models from a particular project, then enter this filed>",
+    "project_name": "<optional: if you want list of models from a particular project, then enter this filed, else it will return all models>",
     "db_credentials": "db_credentials (same format as above)"
 }
 ```
