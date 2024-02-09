@@ -2,7 +2,11 @@ import mindsdb_sdk
 
 server = mindsdb_sdk.connect()
 try:
-    server.query("DROP MODEL [IF EXISTS] mindsdb.test_regression_model;")
+    try:
+        res = server.query("DROP MODEL IF EXISTS example_db.test_regression_model;")
+        print(res.fetch())
+    except Exception as e:
+        print(e)
     server.create_database(
         engine="postgres",
         name="example_db",
