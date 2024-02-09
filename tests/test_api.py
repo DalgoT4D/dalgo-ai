@@ -25,7 +25,7 @@ class MyFirstTestCase(unittest.TestCase):
             "training_set_schema": "demo_data",
             "training_set_tableName": "home_rentals",
             "input_columns_names": "*",
-            "output_column_names": "rentals_price",
+            "output_column_names": "rental_price",
             "project_name": "example_db"
         }
         response = requests.post(url, headers=headers, data=json.dumps(payload))
