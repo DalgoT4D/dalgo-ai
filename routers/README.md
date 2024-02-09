@@ -8,7 +8,7 @@
 ## 2. Body
 ```python
 body_in_train_request = {
-    "name_of_model": "test_regression_model",
+    "name_of_model": "<model name>",
     "db_credentials": "db_credentials (read below for db_credentials)",
     "training_set_schema": "<optional: if schema present enter schema>",
     "training_set_tableName": "<enter table_name>",
@@ -23,7 +23,7 @@ body_in_train_request = {
 db_credentials = {
     "db_name": "<enter mindsdb database name>",
     "subscription": "local",
-    "url":"<optional: if you set custom mindsdb editor port istead of using default>"
+    "url":"<required if mindsdb is created on EC2 instance or other cloud services, otherwire for local device, it is not required>"
 }
 ```
 2. For training the model on cloud
