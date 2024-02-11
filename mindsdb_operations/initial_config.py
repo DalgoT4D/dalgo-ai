@@ -2,9 +2,27 @@ import mindsdb_sdk
 from pydantic import BaseModel
 
 
+class DBCredentials(BaseModel):
+    db_rename: str = None
+    engine: str
+    user: str
+    password: str
+    host: str
+    port: int | str
+    db_name: str
+
+
+class MindsDBCredentials(BaseModel):
+    subscription: str
+    url: str = None
+    email_id: str = None
+    password: str = None
+
+
 class TrainDetails(BaseModel):
     name_of_model: str
-    db_credentials: dict
+    db_credentials: DBCredentials
+    mindsdb_credentials: MindsDBCredentials
     training_set_schema: str = None
     training_set_tableName: str
     optional_filter_condition: str = None
@@ -15,14 +33,14 @@ class TrainDetails(BaseModel):
 
 class ModelDetails(BaseModel):
     project_name: str = None
-    db_credentials: dict
+    mindsdb_credentials: MindsDBCredentials
 
 
-def get_connection(db_credentials: dict):
-    subscription = db_credentials.get("subscription", "cloud")
-    url = db_credentials.get("url", None)
-    email_id = db_credentials.get("email_id", None)
-    password = db_credentials.get("password", None)
+def get_connection(mindsdb_credentials: MindsDBCredentials):
+    subscription = mindsdb_credentials.subscription
+    url = mindsdb_credentials.url
+    email_id = mindsdb_credentials.email_id
+    password = mindsdb_credentials.password
     if subscription == "local":
         if url is None:
             server = mindsdb_sdk.connect()

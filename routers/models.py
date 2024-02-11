@@ -12,4 +12,5 @@ async def models(item: ModelDetails):
         outcome = get_models(item)
         return {"status": "success", "outcome": str(outcome)}
     except Exception as e:
+        print(e)
         return {"status": "failed", "outcome": str(e)}

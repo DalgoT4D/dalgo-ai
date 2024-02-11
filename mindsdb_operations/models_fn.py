@@ -2,7 +2,7 @@ from mindsdb_operations.initial_config import get_connection, ModelDetails
 
 
 def models_fn(item: ModelDetails):
-    server = get_connection(item.db_credentials)
+    server = get_connection(item.mindsdb_credentials)
     project = server.get_project('mindsdb')
     if item.project_name is None:
         final_result = project.query("SHOW MODELS").fetch()
