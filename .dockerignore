@@ -1,0 +1,8 @@
+.dockerignore
+Dockerfile
+.venv
+__pycache__
+.idea
+.gitignore
+LICENSE
+README.md

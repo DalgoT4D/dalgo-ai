@@ -1,5 +1,7 @@
+from typing import Union
 import mindsdb_sdk
 from pydantic import BaseModel
+import os
 
 
 class DBCredentials(BaseModel):
@@ -8,13 +10,13 @@ class DBCredentials(BaseModel):
     user: str
     password: str
     host: str
-    port: int | str
+    port: Union[int, str]
     db_name: str
 
 
 class MindsDBCredentials(BaseModel):
     subscription: str
-    url: str = None
+    url: str = os.getenv('MINDSDB_URL', None)
     email_id: str = None
     password: str = None
 
