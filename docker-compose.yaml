@@ -1,0 +1,18 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - MINDSDB_URL=http://mindsdb:47334
+    restart: always
+    depends_on:
+      - mindsdb
+  mindsdb:
+    image: mindsdb/mindsdb:lightwood
+    ports:
+      - "47334:47334"
+    restart: always

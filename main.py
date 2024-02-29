@@ -2,6 +2,8 @@
 from fastapi import FastAPI
 import uvicorn
 import argparse
+from routers import train, models
+
 
 def create_app():
     app = FastAPI()
@@ -10,6 +12,8 @@ def create_app():
     def healthcheck():
         return {"status": "ok"}
 
+    app.include_router(train.router)
+    app.include_router(models.router)
     return app
 
 if __name__ == "__main__":
@@ -18,4 +22,4 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8000, help="Port number to bind the FastAPI application")
     args = parser.parse_args()
 
-    uvicorn.run("main:create_app", host="127.0.0.1", port=args.port, reload=True)
+    uvicorn.run("main:create_app", host="0.0.0.0", port=args.port, reload=True)
